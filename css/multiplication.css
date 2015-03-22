@@ -1,0 +1,16 @@
+.table {
+	max-width: 200px;	
+	text-align: center;
+}
+
+.rangee1 {
+	background-color: #dddddd;
+}
+
+.rangee2 {
+	background-color: #aaaaaa;
+}
+
+tr:hover {
+	background-color: #3875D7;
+}

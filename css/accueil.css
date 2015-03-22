@@ -1,0 +1,39 @@
+body {
+	text-align: center;
+	min-width: 600px;
+}
+
+.boite-centrale {
+	width: 700px;
+	display: inline-block;
+	text-align: left;
+	background-color: #002957;
+	color: white;
+	border-radius: 30px;
+	padding: 20px;
+
+}
+
+
+.rechercher-niveau, .rechercher-grammaire {
+	min-width: 325px;
+	max-width: 325px;
+	display: inline-block;
+	background-color: orange;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.rechercher-grammaire h4, .rechercher-niveau h4 {
+	text-align: center;
+}
+
+.favoris {
+	background-color: purple;
+	text-align: center;
+	border-radius: 20px;
+}
+
+button {
+	display: inline-block;
+}

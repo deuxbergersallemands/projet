@@ -1,0 +1,34 @@
+body {
+	text-align: center;
+}
+
+.boite-centrale {
+	width: 505px;
+	display: inline-block;
+	text-align: left;
+	background-color: #dddddd;
+	border-radius: 30px;
+	padding: 20px;
+}
+
+.etiquettes, .commentaires, .paroles {
+	min-width: 400px;
+}
+
+.etiquette {
+	display: inline-block;
+	background-color: white;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.paroles {
+	background-color: orange;
+	border-radius: 14px;
+
+}
+
+.commentaire {
+	border-radius: 10px;
+	background-color: gray;
+}

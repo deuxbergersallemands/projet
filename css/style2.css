@@ -1,0 +1,27 @@
+body {
+	text-align: center;
+	min-width: 600px;
+    background: url("../images/ciel.jpg") repeat-x scroll 0 0;
+}
+
+h1 {
+	color: white;
+	font-family: Impact;
+	display: inline-block;
+}
+
+.boite-centrale {
+	width: 505px;
+	display: inline-block;
+	text-align: left;
+	background-color: #002957;
+	color: white;
+	border-radius: 30px;
+	padding: 20px;
+
+}
+
+.soumettre {
+	text-align: right;
+	margin-top: 5px;
+}

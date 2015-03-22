@@ -1,0 +1,22 @@
+.nombre {
+	max-width: 200px;
+	width: 200px;
+	font-size: 15px;
+	text-align: center;
+}
+
+body {
+	text-align: center;
+}
+
+form {
+	display: inline-block;
+}
+
+#validation {
+	text-align: right;
+}
+
+input {
+	display: inline-block;
+}

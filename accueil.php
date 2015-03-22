@@ -2,7 +2,16 @@
 	session_start();
 	require_once("connexion_base.php");
 
-	$psuedo = $_SESSION['psuedo'];;
+	$pseudo = $_SESSION['pseudo'];
+	echo "<h1> $psuedo </h1>";
+
+	$requete2="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
+	$response2 = $pdo->prepare($requete2);
+	$response2->execute();
+
+	$enregistrements = $response2->fetchAll();
+
+	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
 
 ?>
 
@@ -19,7 +28,7 @@
 			<a href="soumettrechanson.php"> Soumettre une chanson! </a> 
 		</header>
 		<?php
-			echo "<p> Hello $psuedo </p>";
+			echo "<p> Hello ".$_SESSION['pseudo']."</p>";
 		?>
 		<div class="boite-centrale">
 			<div class="rechercher-niveau">

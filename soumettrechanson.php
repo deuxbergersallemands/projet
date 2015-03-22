@@ -1,6 +1,23 @@
 <?php 
 	session_start();
 	require_once("connexion_base.php");
+	$id_personne = $_SESSION['id_personne'];
+
+	$chanson = $_POST['chanson'];
+	$artiste = $_POST['artiste'];			
+	$paroles = $_POST['paroles'];
+	$lien = $_POST['lien'];
+
+
+		$requete3="INSERT INTO chanson (titre, interprete, paroles, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, NOW())";
+		$response3=$pdo->prepare($requete3);
+		$response3->execute(array($chanson, $artiste, $paroles, $lien, $id_personne));
+
+
+	if (!empty($_POST)) {
+		echo "<h1>Hey there $chanson et $artiste et $paroles et $lien et $id_personne </h1>";
+		//header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+	}
 ?>
 
 <!DOCTYPE HTML>
@@ -14,20 +31,20 @@
 		<div>
 			<a href="accueil.php"> Retourner à la page d'accueil </a>
 			<div class="boite-centrale">
-				<form>
-					<input type="text" class="form-control" placeholder="Titre de Chanson"/>
-					<input type="text" class="form-control" placeholder="Artiste"/>
+				<form action="soumettrechanson.php" method="post" id="soumettrechanson" >
+					<input type="text" class="form-control" name="chanson" placeholder="Titre de Chanson"/>
+					<input type="text" class="form-control" name="artiste" placeholder="Artiste"/>
 
 					<div class="etiquettes">
-						<input type="text" class="form-control" placeholder="Étiquettes"/>
+						<input type="text" class="form-control" name="etiquettes" placeholder="Étiquettes"/>
 					</div>
 					<div class="paroles">
-						<input type="textfield" class="form-control" placeholder="Paroles!"/>
+						<input type="textfield" class="form-control" name="paroles" placeholder="Paroles!"/>
 					</div>
 					<div class="lien">
-						<input type="text" class="form-control" placeholder="Mettre un lien ici!"/>
+						<input type="text" class="form-control" name="lien" placeholder="Mettre un lien ici!"/>
 					</div>
-						<a href="accueil.php"> Envoyer </a>
+						<input type="submit" name="submit" value="Envoyer"/>
 				</form>
  			</div>
 		</div>

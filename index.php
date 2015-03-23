@@ -4,6 +4,7 @@
 
 	if (!empty($_POST)) {
 		$pseudo = $_POST['identifiant'];
+		$motdepasse = $_POST['motdepasse'];
 
 		$requete="SELECT * FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
 		$response = $pdo->prepare($requete);
@@ -12,9 +13,15 @@
 		$pseudoArray = $response->fetchAll();
 
 		if (count($pseudoArray)) {
-			$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
-			header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+			if ($pseudoArray[0]['mot_de_passe'] == $motdepasse) {  // Vérifier mot de passe
+				$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
+				header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+			}
+			else 
+				echo "<script> alert('Le mot de passe nest pas juste!'); </script>";
 		}
+		else 
+			echo "<script> alert('Ce pseudo nexiste pas!'); </script>";
 	}
 ?>
 
@@ -35,7 +42,7 @@
 				<form action="index.php" method="post" id="connection">
 					<p> Pour vous connecter, veuillez remplir les champs au-dessous! </p> 
 					<input class ="form-control" type="text" id="identifiant" name="identifiant" placeholder="Identifiant"/>
-					<input class="form-control" type="text" id="motDePasse" name="motDePasse" placeholder="Mot de passe"/>
+					<input class="form-control" type="text" id="motDePasse" name="motdepasse" placeholder="Mot de passe"/>
 					<div class="soumettre">
 						<input class="btn btn-primary"  onclick="soumettreConnection()" id="validation"/>
 					</div>

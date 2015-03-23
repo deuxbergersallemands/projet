@@ -15,7 +15,6 @@
 
 
 	if (!empty($_POST)) {
-		echo "<h1>Hey there $chanson et $artiste et $paroles et $lien et $id_personne </h1>";
 		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
 	}
 ?>

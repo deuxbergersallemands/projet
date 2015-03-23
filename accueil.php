@@ -12,6 +12,12 @@
 	$enregistrements = $response2->fetchAll();
 
 	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
+
+	$requeteChanson="SELECT * FROM chanson WHERE id_chanson > ((SELECT COUNT(*) FROM chanson) - 10)";  // Retourner le id_personne de l'utilisateur!
+	$responseChanson = $pdo->prepare($requeteChanson);
+	$responseChanson->execute();
+
+	$chansonsRecentes = $responseChanson->fetchAll();
 ?>
 
 <!DOCTYPE HTML>
@@ -26,7 +32,7 @@
 			<h1> BergerAllemand </h1>
 			<a href="soumettrechanson.php"> Soumettre une chanson! </a> 
 			<form action="deconnexion.php" method="post">
-				<input type="submit" class="btn btn-warning"/>
+				<button type="submit" class="btn btn-warning"> Déconnexion </button>
 			</form>
 		</header>
 		<?php
@@ -62,37 +68,25 @@
 				</select>
 			</div>
 			<div class="favoris">
- 				<h4> Vos résultats vont s'afficher au-dessous! </h4> 
-				<select multiple class="form-control">
-					<option> "Papaoutai" de Stromae [Niveau/Difficulté *****] </option>
-					<option> "Zombie" de Maître Gims [Niveau *****] </option>
-					<option> "Dernière Danse" de Kyo [Niveau **] </option>
-					<option> "Où Est Ma Tête" de Pink Martini [Niveau *] </option>
-					<option> "Aïcha" de Cheb Khaled [Niveau ***]</option>
-					<option> "Elle Me Dit" de MIKA [Niveau *] </option>
-					<option> "Sur Ma Route" de Black M [Niveau ****] </option>
-					<option> "Papaoutai" de Stromae [Niveau/Difficulté *****] </option>
-					<option> "Zombie" de Maître Gims [Niveau *****] </option>
-					<option> "Dernière Danse" de Kyo [Niveau **] </option>
-					<option> "Où Est Ma Tête" de Pink Martini [Niveau *] </option>
-					<option> "Aïcha" de Cheb Khaled [Niveau ***]</option>
-					<option> "Elle Me Dit" de MIKA [Niveau *] </option>
-					<option> "Sur Ma Route" de Black M [Niveau ****] </option>
-					<option> "Papaoutai" de Stromae [Niveau/Difficulté *****] </option>
-					<option> "Zombie" de Maître Gims [Niveau *****] </option>
-					<option> "Dernière Danse" de Kyo [Niveau **] </option>
-					<option> "Où Est Ma Tête" de Pink Martini [Niveau *] </option>
-					<option> "Aïcha" de Cheb Khaled [Niveau ***]</option>
-					<option> "Elle Me Dit" de MIKA [Niveau *] </option>
-					<option> "Sur Ma Route" de Black M [Niveau ****] </option>
-					<option> "Papaoutai" de Stromae [Niveau/Difficulté *****] </option>
-					<option> "Zombie" de Maître Gims [Niveau *****] </option>
-					<option> "Dernière Danse" de Kyo [Niveau **] </option>
-					<option> "Où Est Ma Tête" de Pink Martini [Niveau *] </option>
-					<option> "Aïcha" de Cheb Khaled [Niveau ***]</option>
-					<option> "Elle Me Dit" de MIKA [Niveau *] </option>
-					<option> "Sur Ma Route" de Black M [Niveau ****] </option>
-				</select>
+ 				<h4> Récemment ajoutées </h4> 
+				<table class="table-condensed table-bordered table-hover table-striped table">
+					<tr>
+						<th> Chanson </th>
+						<th> Interpète </th>
+						<th> Date Soumise </th> <!-- Remplacer avec 'niveau' et peut-être des catégories-->
+						<th> En savoir plus </th>
+					</tr>
+					<?php
+						for ($i = count($chansonsRecentes)-1; $i >= 0; $i--) {
+							echo "<tr>
+									<td>".$chansonsRecentes[$i]['titre']."</td>
+									<td>".$chansonsRecentes[$i]['interprete']."</td>
+									<td>".$chansonsRecentes[$i]['date_soumise']."</td>
+									<td> <form action='chanson.php' method='post'><button type='submit' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary'>En Savoir Plus </button></form></td>  
+								  </tr>";
+						}
+					?>
+				</table>
 			</div>
 		</div>
 		<footer>

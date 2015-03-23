@@ -2,20 +2,29 @@
 	session_start();
 	require_once("connexion_base.php");
 
-
-	$pseudo = $_POST['pseudo'];
-	$email = $_POST['email'];			
-	$motdepasse = $_POST['motdepasse'];
-	$confirmmdp = $_POST['comotdepasse'];
-
-	$requete="INSERT INTO personne (pseudo, mot_de_passe, email, date_inscription) VALUES (?, ?, ?, NOW())";
-	$response=$pdo->prepare($requete);
-	$response->execute(array($pseudo, $motdepasse, $email));
-
-	$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
-
 	if (!empty($_POST)) {
-		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+		$pseudo = $_POST['pseudo'];
+		$email = $_POST['email'];			
+		$motdepasse = $_POST['motdepasse'];
+		$confirmmdp = $_POST['comotdepasse'];
+
+		$requete="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
+		$response = $pdo->prepare($requete);
+		$response->execute();
+
+		$pseudoExistes = $response->fetchAll();
+
+		// Si le pseudo n'existe pas, ajouter l'utilisateur à la base de données.  
+		if (!count($pseudoExistes)) {  
+			$requete="INSERT INTO personne (pseudo, mot_de_passe, email, date_inscription) VALUES (?, ?, ?, NOW())";
+			$response=$pdo->prepare($requete);
+			$response->execute(array($pseudo, $motdepasse, $email));
+
+			$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
+			header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+		} else {
+			echo " <script> alert('Cet pseudo est déjà pris! Veuillez essayer à nouveau!'); </script>";
+		}
 	}
 ?>
 

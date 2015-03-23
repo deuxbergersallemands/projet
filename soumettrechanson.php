@@ -3,19 +3,27 @@
 	require_once("connexion_base.php");
 	$id_personne = $_SESSION['id_personne'];
 
-	$chanson = $_POST['chanson'];
-	$artiste = $_POST['artiste'];			
-	$paroles = $_POST['paroles'];
-	$lien = $_POST['lien'];
 
+	$requete="SELECT * FROM niveau";  // Retourner le id_personne de l'utilisateur!
+	$response = $pdo->prepare($requete);
+	$response->execute();
 
-	$requete3="INSERT INTO chanson (titre, interprete, paroles, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, NOW())";
-	$response3=$pdo->prepare($requete3);
-	$response3->execute(array($chanson, $artiste, $paroles, $lien, $id_personne));
-
+	$niveaux = $response->fetchAll();
 
 	if (!empty($_POST)) {
+		$chanson = $_POST['chanson'];
+		$artiste = $_POST['artiste'];			
+		$paroles = $_POST['paroles'];
+		$niveau = $_POST['niveau'];
+		$lien = $_POST['lien'];
+
+
+		$requete3="INSERT INTO chanson (titre, interprete, paroles, niveau, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+		$response3=$pdo->prepare($requete3);
+		$response3->execute(array($chanson, $artiste, $paroles, $niveau, $lien, $id_personne));
+
 		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+
 	}
 ?>
 
@@ -42,6 +50,13 @@
 					</div>
 					<div class="paroles">
 						<textarea class="form-control" name="paroles" placeholder="Paroles!"></textarea>
+					</div>
+					<div class="niveau">
+						<?php
+							for ($i=0; $i<count($niveaux); $i++) {
+								echo "<input type='radio' name='niveau' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</input>";
+							}
+						?>
 					</div>
 					<div class="lien">
 						<input type="text" class="form-control" name="lien" placeholder="Mettre un lien ici!"/>

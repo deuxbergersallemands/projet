@@ -18,6 +18,32 @@
 	$responseChanson->execute();
 
 	$chansonsRecentes = $responseChanson->fetchAll();
+
+	if (!empty($_GET)) {
+		$option = $_GET['champ'];
+
+		if ($option == 'niveau') {
+			$requete="SELECT niveau_texte FROM niveau";  // Tous les niveaux du texte!
+			$response = $pdo->prepare($requete);
+			$response->execute();
+
+			$chansons = $response->fetchAll();
+
+		}
+		else if ($option == 'categories') {
+
+		}
+		else if ($option == 'style') {
+
+		}
+		else { // Afficher toutes les chansons 
+			$requete="SELECT * FROM chanson";  // Retourner le id_personne de l'utilisateur!
+			$response = $pdo->prepare($requete);
+			$response->execute();
+
+			$chansons = $response->fetchAll();
+		}
+	}
 ?>
 
 <!DOCTYPE HTML>
@@ -40,33 +66,51 @@
 				echo "<p> Hello ".$_SESSION['pseudo']."</p>";
 		?>
 		<div class="boite-centrale">
-			<div class="rechercher-niveau">
-				<h4> Rechercher à partir du difficulté: </h4>
-				<form action="niveau.php" method="get">
-					<button name="niveau" class="btn btn-primary" type="submit" value="debutant">Débutant</button>
-					<br>
-					<button name="niveau" class="btn btn-primary" type="submit" value="niveau2">niveau2</button>
-					<br>
-					<button name="niveau" class="btn btn-primary" type="submit" value="intermediaire">Intermediaire</button>
-					<br>
-					<button name="niveau" class="btn btn-primary" type="submit" value="niveau4">niveau4</button>
-					<br>
-					<button name="niveau" class="btn btn-primary" type="submit" value="avance">Avancé</button>
+			<div class="rechercher-grammaire">
+				<form action="accueil.php" method="get">
+					<button type='submit' name='champ' value='niveau'> Niveau </button>
 				</form>
 			</div>
 			<div class="rechercher-grammaire">
-				<h4> Rechercher à partir de la grammaire: </h4> 
-				<select multiple class="form-control">
-					<option> Passé Composé </option>
-					<option> Plus-Que-Parfait </option>
-					<option> Futur Proche </option>
-					<option> Argot </option>
-					<option> Présent </option>
-					<option> Imparfait </option>
-					<option> Futur Simple </option>
-					<option> .... </option> 
-				</select>
+				<form action="accueil.php" method="get">
+					<button type='submit' name='champ' value='categories'> Catégories </button>
+				</form>
 			</div>
+			<div class="rechercher-grammaire">
+				<form action="accueil.php" method="get">
+					<button type='submit' name='champ' value='style'> Style de Musique </button>
+				</form>
+			</div>
+			<div class="rechercher-grammaire">
+				<form action="accueil.php" method="get">
+					<button type='submit' name='champ' value='toutes'> Toutes </button>
+				</form>
+			</div>
+			<?php  /* Afficher les résultats s'il y en a*/ 
+				if (count($chansons)) {
+				echo "<div class='resultats'> 
+						<table class=' table table-condensed table-bordered table-hover table-striped'>
+							<tr>
+								<th> Chanson </th>
+								<th> Interpète </th>
+								<th> Niveau </th>
+								<th> Date Soumise </th> 
+								<th> Allez-y! </th>
+							</tr>";
+				for ($i=0; $i<count($chansons); $i++) {
+					echo "<tr>
+								<td>".$chansons[$i]['titre']."</td>
+								<td>".$chansons[$i]['interprete']."</td>
+								<td>".$chansons[$i]['niveau']."</td>
+								<td>".$chansons[$i]['date_soumise']."</td>
+								<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansons[$i]['id_chanson']."' class='btn btn-primary btn-xs'>En Savoir Plus </button></form></td>  
+
+						  </tr> ";
+					}		
+				echo "</table>
+					</div> ";
+				}
+			?>
 			<div class="favoris">
  				<h4> Récemment ajoutées </h4> 
 				<table class="table-condensed table-bordered table-hover table-striped table">
@@ -82,7 +126,7 @@
 									<td>".$chansonsRecentes[$i]['titre']."</td>
 									<td>".$chansonsRecentes[$i]['interprete']."</td>
 									<td>".$chansonsRecentes[$i]['date_soumise']."</td>
-									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary'>En Savoir Plus </button></form></td>  
+									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary btn-xs'>En Savoir Plus </button></form></td>  
 								  </tr>";
 						}
 					?>

@@ -13,6 +13,9 @@
 	<body>
 		<div>
 			<a href="accueil.php"> Retourner à la page d'accueil </a>
+			<form action="deconnexion.php" method="post">
+				<input type="submit" class="btn btn-warning"/>
+			</form>
 			<div class="boite-centrale">
 				<h3> "Titre de Chanson" </h3>
 				<h5> de "Artiste" </h5>

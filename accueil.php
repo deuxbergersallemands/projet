@@ -12,7 +12,6 @@
 	$enregistrements = $response2->fetchAll();
 
 	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
-
 ?>
 
 <!DOCTYPE HTML>
@@ -26,9 +25,13 @@
 		<header>
 			<h1> BergerAllemand </h1>
 			<a href="soumettrechanson.php"> Soumettre une chanson! </a> 
+			<form action="deconnexion.php" method="post">
+				<input type="submit" class="btn btn-warning"/>
+			</form>
 		</header>
 		<?php
-			echo "<p> Hello ".$_SESSION['pseudo']."</p>";
+			if ($_SESSION['pseudo'])
+				echo "<p> Hello ".$_SESSION['pseudo']."</p>";
 		?>
 		<div class="boite-centrale">
 			<div class="rechercher-niveau">

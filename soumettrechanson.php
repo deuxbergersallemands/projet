@@ -29,6 +29,9 @@
 	<body>
 		<div>
 			<a href="accueil.php"> Retourner à la page d'accueil </a>
+			<form action="deconnexion.php" method="post">
+				<input type="submit" class="btn btn-warning"/>
+			</form>
 			<div class="boite-centrale">
 				<form action="soumettrechanson.php" method="post" id="soumettrechanson" >
 					<input type="text" class="form-control" name="chanson" placeholder="Titre de Chanson"/>

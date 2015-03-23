@@ -10,6 +10,9 @@
 		<title> UnBergerAllemand </title>
 	</head>
 	<body>
+		<form action="deconnexion.php" method="post">
+			<input type="submit" class="btn btn-warning"/>
+		</form>
 		<header>
 			<h1> [Niveau] </h1>
 		</header>

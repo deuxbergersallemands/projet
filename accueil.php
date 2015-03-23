@@ -103,7 +103,7 @@
 								<td>".$chansons[$i]['interprete']."</td>
 								<td>".$chansons[$i]['niveau']."</td>
 								<td>".$chansons[$i]['date_soumise']."</td>
-								<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansons[$i]['id_chanson']."' class='btn btn-primary btn-xs'>En Savoir Plus </button></form></td>  
+								<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansons[$i]['id_chanson']."' class='btn btn-primary btn-xs'> Cliquez ici! </button></form></td>  
 
 						  </tr> ";
 					}		
@@ -117,6 +117,7 @@
 					<tr>
 						<th> Chanson </th>
 						<th> Interpète </th>
+						<th> Niveau </th>
 						<th> Date Soumise </th> <!-- Remplacer avec 'niveau' et peut-être des catégories-->
 						<th> En savoir plus </th>
 					</tr>
@@ -125,8 +126,9 @@
 							echo "<tr>
 									<td>".$chansonsRecentes[$i]['titre']."</td>
 									<td>".$chansonsRecentes[$i]['interprete']."</td>
+									<td>".$chansonsRecentes[$i]['niveau']."</td>
 									<td>".$chansonsRecentes[$i]['date_soumise']."</td>
-									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary btn-xs'>En Savoir Plus </button></form></td>  
+									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary btn-xs'> Cliquez pour Étudier </button></form></td>  
 								  </tr>";
 						}
 					?>

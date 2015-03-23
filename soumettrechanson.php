@@ -9,14 +9,14 @@
 	$lien = $_POST['lien'];
 
 
-		$requete3="INSERT INTO chanson (titre, interprete, paroles, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, NOW())";
-		$response3=$pdo->prepare($requete3);
-		$response3->execute(array($chanson, $artiste, $paroles, $lien, $id_personne));
+	$requete3="INSERT INTO chanson (titre, interprete, paroles, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, NOW())";
+	$response3=$pdo->prepare($requete3);
+	$response3->execute(array($chanson, $artiste, $paroles, $lien, $id_personne));
 
 
 	if (!empty($_POST)) {
 		echo "<h1>Hey there $chanson et $artiste et $paroles et $lien et $id_personne </h1>";
-		//header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
 	}
 ?>
 
@@ -45,6 +45,7 @@
 						<input type="text" class="form-control" name="lien" placeholder="Mettre un lien ici!"/>
 					</div>
 						<input type="submit" name="submit" value="Envoyer"/>
+					</div>
 				</form>
  			</div>
 		</div>

@@ -1,3 +1,23 @@
+<?php
+	session_start();
+	require_once("connexion_base.php");
+
+	if (!empty($_POST)) {
+		$pseudo = $_POST['identifiant'];
+
+		$requete="SELECT * FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
+		$response = $pdo->prepare($requete);
+		$response->execute();
+
+		$pseudoArray = $response->fetchAll();
+
+		if (count($pseudoArray)) {
+			$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
+			header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+		}
+	}
+?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -12,7 +32,7 @@
 		</header>
 		<div>
 			<div class="boite-centrale">
-				<form action="accueil.php" method="get" id="connection">
+				<form action="index.php" method="post" id="connection">
 					<p> Pour vous connecter, veuillez remplir les champs au-dessous! </p> 
 					<input class ="form-control" type="text" id="identifiant" name="identifiant" placeholder="Identifiant"/>
 					<input class="form-control" type="text" id="motDePasse" name="motDePasse" placeholder="Mot de passe"/>

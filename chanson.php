@@ -1,6 +1,20 @@
 <?php 
 	session_start();
 	require_once("connexion_base.php");
+
+	if (!empty($_POST)) {
+		$id_chanson = $_POST['id_chanson'];
+
+		$requeteChanson="SELECT * FROM chanson WHERE id_chanson = $id_chanson";  // Retourner le id_personne de l'utilisateur!
+		$responseChanson = $pdo->prepare($requeteChanson);
+		$responseChanson->execute();
+
+		$chanson = $responseChanson->fetchAll();
+		$_SESSION['titre'] = $chanson[0]['titre'];
+		$_SESSION['interprete'] = $chanson[0]['interprete'];
+		$_SESSION['paroles'] = $chanson[0]['paroles'];
+		$_SESSION['lien'] = $chanson[0]['lien'];
+	} 
 ?>
 
 <!DOCTYPE HTML>
@@ -17,41 +31,24 @@
 				<button type="submit" class="btn btn-warning"> Déconnexion </button>
 			</form>
 			<div class="boite-centrale">
-				<h3> "Titre de Chanson" </h3>
-				<h5> de "Artiste" </h5>
-
+				<?php
+					echo "<h3> ".$_SESSION['titre']."</h3>
+					<h5> de ".$_SESSION['interprete']."</h5>";
+				?>
 				<div class="etiquettes">
 					<div class="etiquette">Passe-Compose</div>
 					<div class="etiquette">Plus-Que-Parfait</div>
 					<div class="etiquette">Plus-Que-Parfait</div>
 				</div>
 				<div class="paroles">
-					<p> Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles
-						Voila les paroles </p> 
+					<?php
+						echo "<p> ".$_SESSION['titre']."</p>"; 
+					?>
 				</div>
 				<div class="lien">
-					<a href="http://youtube.com"> Cliquez ici pour écouter [Chanson] </a> 
+					<?php
+						echo "<a href=".$_SESSION['lien']." target='_blank'> Cliquez ici pour écouter ".$_SESSION['titre']."</a>";  
+					?>
 				</div>
 				<div class="commentaires">
 					<div class="commentaire">

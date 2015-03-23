@@ -82,7 +82,7 @@
 									<td>".$chansonsRecentes[$i]['titre']."</td>
 									<td>".$chansonsRecentes[$i]['interprete']."</td>
 									<td>".$chansonsRecentes[$i]['date_soumise']."</td>
-									<td> <form action='chanson.php' method='post'><button type='submit' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary'>En Savoir Plus </button></form></td>  
+									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary'>En Savoir Plus </button></form></td>  
 								  </tr>";
 						}
 					?>

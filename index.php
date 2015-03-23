@@ -42,7 +42,7 @@
 				<form action="index.php" method="post" id="connection">
 					<p> Pour vous connecter, veuillez remplir les champs au-dessous! </p> 
 					<input class ="form-control" type="text" id="identifiant" name="identifiant" placeholder="Identifiant"/>
-					<input class="form-control" type="text" id="motDePasse" name="motdepasse" placeholder="Mot de passe"/>
+					<input class="form-control" type="password" id="motDePasse" name="motdepasse" placeholder="Mot de passe"/>
 					<div class="soumettre">
 						<input class="btn btn-primary"  onclick="soumettreConnection()" id="validation"/>
 					</div>

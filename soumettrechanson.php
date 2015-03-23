@@ -41,7 +41,7 @@
 						<input type="text" class="form-control" name="etiquettes" placeholder="Étiquettes"/>
 					</div>
 					<div class="paroles">
-						<input type="textfield" class="form-control" name="paroles" placeholder="Paroles!"/>
+						<textarea class="form-control" name="paroles" placeholder="Paroles!"></textarea>
 					</div>
 					<div class="lien">
 						<input type="text" class="form-control" name="lien" placeholder="Mettre un lien ici!"/>

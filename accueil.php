@@ -1,50 +1,31 @@
 <?php 
 	session_start();
 	require_once("connexion_base.php");
-	require_once("requete.php");
-
-	echo count($niveaux);
+	require_once("accueil_requetes.php");
 
 	$pseudo = $_SESSION['pseudo'];
 	echo "<h1> $psuedo </h1>";
 
-	$requete2="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
-	$response2 = $pdo->prepare($requete2);
-	$response2->execute();
-
-	$enregistrements = $response2->fetchAll();
-
 	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
-
-	$requeteChanson="SELECT * FROM chanson WHERE id_chanson > ((SELECT COUNT(*) FROM chanson) - 10)";  // Retourner le id_personne de l'utilisateur!
-	$responseChanson = $pdo->prepare($requeteChanson);
-	$responseChanson->execute();
-
-	$chansonsRecentes = $responseChanson->fetchAll();
 
 	if (!empty($_GET)) {
 		$option = $_GET['champ'];
 
-		if ($option == 'niveau') {
-			$requete="SELECT niveau_texte FROM niveau";  // Tous les niveaux du texte!
-			$response = $pdo->prepare($requete);
-			$response->execute();
-
-			$chansons = $response->fetchAll();
-
-		}
-		else if ($option == 'categories') {
-
-		}
-		else if ($option == 'style') {
-
-		}
-		else { // Afficher toutes les chansons 
+		if ($option == 'toutes') { // Afficher toutes les chansons 
 			$requete="SELECT * FROM chanson";  // Retourner le id_personne de l'utilisateur!
 			$response = $pdo->prepare($requete);
 			$response->execute();
 
 			$chansons = $response->fetchAll();
+		}
+		else {
+			$niveau_demandé = $_GET['niveau_chanson'];
+
+			$requete="SELECT * FROM chanson WHERE niveau=$niveau_demandé";
+			$response = $pdo->prepare($requete);
+			$response->execute();
+
+			$chansons = $response->fetchAll();	
 		}
 	}
 ?>
@@ -89,7 +70,14 @@
 					<button type='submit' name='champ' value='toutes'> Toutes </button>
 				</form>
 			</div>
-			<?php  /* Afficher les résultats s'il y en a*/ 
+			<?php 
+				if ($option == 'niveau' || $niveau_demandé != 0) {
+					echo "<form method='get' action='accueil.php'>";
+						for ($i=0; $i<count($niveaux); $i++) {
+							echo "<button type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";
+						}
+					echo "</form>";
+				}
 				if (count($chansons)) {
 				echo "<div class='resultats'> 
 						<table class=' table table-condensed table-bordered table-hover table-striped'>
@@ -114,6 +102,8 @@
 					</div> ";
 				}
 			?>
+
+			<!-- Afficher les chasons publiées récennement -->
 			<div class="favoris">
  				<h4> Récemment ajoutées </h4> 
 				<table class="table-condensed table-bordered table-hover table-striped table">

@@ -1,0 +1,23 @@
+<?php
+	$requete="SELECT * FROM niveau";  // Retourner le id_personne de l'utilisateur!
+	$response = $pdo->prepare($requete);
+	$response->execute();
+
+	$niveaux = $response->fetchAll();
+
+
+
+	$requete2="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
+	$response2 = $pdo->prepare($requete2);
+	$response2->execute();
+
+	$enregistrements = $response2->fetchAll();
+
+
+
+	$requeteChanson="SELECT * FROM chanson WHERE id_chanson > ((SELECT COUNT(*) FROM chanson) - 10)";  // Retourner le id_personne de l'utilisateur!
+	$responseChanson = $pdo->prepare($requeteChanson);
+	$responseChanson->execute();
+
+	$chansonsRecentes = $responseChanson->fetchAll();
+?>

@@ -6,26 +6,29 @@
 		$pseudo = $_POST['pseudo'];
 		$email = $_POST['email'];			
 		$motdepasse = $_POST['motdepasse'];
-		$confirmmdp = $_POST['comotdepasse'];
+		$confirmmdp = $_POST['cfmmotdepasse'];
 
-		$requete="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
-		$response = $pdo->prepare($requete);
-		$response->execute();
+		if (!($motdepasse === $confirmmdp))
+			echo " <script> alert('Vous navez pas mis le même motdepasse.  Veuillez vérifier votre orthographe!'); </script>";
+		else {
+			$requete="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
+			$response = $pdo->prepare($requete);
+			$response->execute();
 
-		$pseudoExistes = $response->fetchAll();
+			$pseudoExistes = $response->fetchAll();
 
-		// Si le pseudo n'existe pas, ajouter l'utilisateur à la base de données.  
-		if (!count($pseudoExistes)) {  
-			$requete="INSERT INTO personne (pseudo, mot_de_passe, email, date_inscription) VALUES (?, ?, ?, NOW())";
-			$response=$pdo->prepare($requete);
-			$response->execute(array($pseudo, $motdepasse, $email));
+			// Si le pseudo n'existe pas, ajouter l'utilisateur à la base de données.  
+			if (!count($pseudoExistes)) {  
+				$requete="INSERT INTO personne (pseudo, mot_de_passe, email, date_inscription) VALUES (?, ?, ?, NOW())";
+				$response=$pdo->prepare($requete);
+				$response->execute(array($pseudo, $motdepasse, $email));
 
-			$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
-			header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
-		} else {
-			echo " <script> alert('Cet pseudo est déjà pris! Veuillez essayer à nouveau!'); </script>";
+				$_SESSION['pseudo'] = $pseudo; // Ajouter à la session
+				header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+			} else 
+				echo " <script> alert('Cet pseudo est déjà pris! Veuillez essayer à nouveau!'); </script>";
 		}
-	}
+	}	
 ?>
 
 <!DOCTYPE HTML>
@@ -48,7 +51,7 @@
 					<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo">
 					<input type="text" class="form-control" id="email" name="email" placeholder="Addresse Email">
 					<input type="password" class="form-control" id="motdepasse" name="motdepasse" placeholder="Mot de Passe">
-					<input type="text" class="form-control" id="confirmer" name="conmotdepasse" placeholder="Confirmer le Mot de Passe">
+					<input type="password" class="form-control" id="confirmer" name="cfmmotdepasse" placeholder="Confirmer le Mot de Passe">
 					<p> Pensez à mettre un photo de profil (facultatif):</p> 
 					<input type="file" name="photo">
 					<div class="soumettre">

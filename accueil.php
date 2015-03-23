@@ -1,6 +1,9 @@
 <?php 
 	session_start();
 	require_once("connexion_base.php");
+	require_once("requete.php");
+
+	echo count($niveaux);
 
 	$pseudo = $_SESSION['pseudo'];
 	echo "<h1> $psuedo </h1>";

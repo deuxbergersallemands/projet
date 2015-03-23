@@ -42,7 +42,7 @@
 				</div>
 				<div class="paroles">
 					<?php
-						echo "<p> ".$_SESSION['titre']."</p>"; 
+						echo "<p> ".$_SESSION['paroles']."</p>"; 
 					?>
 				</div>
 				<div class="lien">

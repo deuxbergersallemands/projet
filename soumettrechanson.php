@@ -1,14 +1,9 @@
 <?php 
 	session_start();
 	require_once("connexion_base.php");
+	require_once("requete.php");
+
 	$id_personne = $_SESSION['id_personne'];
-
-
-	$requete="SELECT * FROM niveau";  // Retourner le id_personne de l'utilisateur!
-	$response = $pdo->prepare($requete);
-	$response->execute();
-
-	$niveaux = $response->fetchAll();
 
 	if (!empty($_POST)) {
 		$chanson = $_POST['chanson'];

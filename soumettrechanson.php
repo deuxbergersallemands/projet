@@ -2,8 +2,10 @@
 	session_start();
 	require_once("connexion_base.php");
 	require_once("requete.php");
+	require_once("accueil_requetes.php");
 
 	$id_personne = $_SESSION['id_personne'];
+
 
 	if (!empty($_POST)) {
 		$chanson = $_POST['chanson'];
@@ -11,7 +13,6 @@
 		$paroles = $_POST['paroles'];
 		$niveau = $_POST['niveau'];
 		$lien = $_POST['lien'];
-
 
 		$requete3="INSERT INTO chanson (titre, interprete, paroles, niveau, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, ?, NOW())";
 		$response3=$pdo->prepare($requete3);

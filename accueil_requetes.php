@@ -6,12 +6,14 @@
 	$niveaux = $response->fetchAll();
 
 
+	$pseudo = $_SESSION['pseudo'];
 
 	$requete2="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
 	$response2 = $pdo->prepare($requete2);
 	$response2->execute();
 
 	$enregistrements = $response2->fetchAll();
+	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
 
 
 

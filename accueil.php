@@ -3,11 +3,8 @@
 	require_once("connexion_base.php");
 	require_once("accueil_requetes.php");
 
-	$pseudo = $_SESSION['pseudo'];
 	echo "<h1> $psuedo </h1>";
-
-	$_SESSION['id_personne'] = $enregistrements[0]['id_personne'];
-
+	
 	if (!empty($_GET)) {
 		$option = $_GET['champ'];
 
@@ -88,8 +85,8 @@
 								<th> Date Soumise </th> 
 								<th> Allez-y! </th>
 							</tr>";
-				for ($i=0; $i<count($chansons); $i++) {
-					echo "<tr>
+					for ($i=0; $i<count($chansons); $i++) {
+						echo "<tr>
 								<td>".$chansons[$i]['titre']."</td>
 								<td>".$chansons[$i]['interprete']."</td>
 								<td>".$chansons[$i]['niveau']."</td>

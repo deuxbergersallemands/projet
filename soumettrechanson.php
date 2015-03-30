@@ -3,6 +3,8 @@
 	require_once("connexion_base.php");
 	require_once("requete.php");
 	require_once("accueil_requetes.php");
+	require_once("genre_requete.php");
+
 
 	$id_personne = $_SESSION['id_personne'];
 
@@ -54,6 +56,14 @@
 							}
 						?>
 					</div>
+					<div class="genre">
+						<?php
+							for ($i=0; $i<count($genres); $i++) {
+								echo "<input type='radio' name='genre' value='".$genres[$i]['id_genre']."'>".$genres[$i]['texte']."</input>";
+							}
+						?>
+					</div>
+
 					<div class="lien">
 						<input type="text" class="form-control" name="lien" placeholder="Mettre un lien ici!"/>
 					</div>

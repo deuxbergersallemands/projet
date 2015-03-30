@@ -50,6 +50,7 @@
 						echo "<a href=".$_SESSION['lien']." target='_blank'> Cliquez ici pour écouter ".$_SESSION['titre']."</a>";  
 					?>
 				</div>
+
 				<div class="commentaires">
 					<div class="commentaire">
 						<h5> StromaeFan  10/10/2015</h5>
@@ -65,7 +66,8 @@
 						<h5> ReineDesNeiges  10/14/2015</h5>
 						<hl>
 						<p> Libéréeeeeeee Délivréeeeeee!</p>
-					</div>				</div>
+					</div>				
+				</div>
  			</div>
 		</div>
 		<footer>

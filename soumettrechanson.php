@@ -14,11 +14,13 @@
 		$artiste = $_POST['artiste'];			
 		$paroles = $_POST['paroles'];
 		$niveau = $_POST['niveau'];
+		$genre = $_POST['genre'];
 		$lien = $_POST['lien'];
 
-		$requete3="INSERT INTO chanson (titre, interprete, paroles, niveau, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+
+		$requete3="INSERT INTO chanson (titre, interprete, paroles, niveau, genre, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 		$response3=$pdo->prepare($requete3);
-		$response3->execute(array($chanson, $artiste, $paroles, $niveau, $lien, $id_personne));
+		$response3->execute(array($chanson, $artiste, $paroles, $niveau, $genre, $lien, $id_personne));
 
 		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
 

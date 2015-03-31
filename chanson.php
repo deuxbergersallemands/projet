@@ -26,7 +26,7 @@
 			$requete3="INSERT INTO commentaire (texte, id_utilisateur, id_chanson, date_soumise) VALUES (?, ?, ?, NOW())";
 			$response3=$pdo->prepare($requete3);
 			$response3->execute(array($nouveau_commentaire, $id_utilisateur, $id_chanson));			
-		break;
+			break;
 	}
 	/**
 	 * Trouver les commentaires liés avec cette chanson

@@ -4,26 +4,24 @@
 	require_once("accueil_requetes.php");
 
 	echo "<h1> $psuedo </h1>";
-	
-	if (!empty($_GET)) {
-		$option = $_GET['champ'];
-
-		if ($option == 'toutes') { // Afficher toutes les chansons 
+		
+	switch ($_GET['champ']) {
+		case 'toutes':
 			$requete="SELECT * FROM chanson";  // Retourner le id_personne de l'utilisateur!
 			$response = $pdo->prepare($requete);
 			$response->execute();
 
 			$chansons = $response->fetchAll();
-		}
-		else {
-			$niveau_demandé = $_GET['niveau_chanson'];
+			break;
+		//}
+		default:
+			$niveau_demande = $_GET['niveau_chanson'];
 
-			$requete="SELECT * FROM chanson WHERE niveau=$niveau_demandé";
+			$requete="SELECT * FROM chanson WHERE niveau=$niveau_demande";
 			$response = $pdo->prepare($requete);
 			$response->execute();
 
 			$chansons = $response->fetchAll();	
-		}
 	}
 ?>
 
@@ -68,7 +66,7 @@
 				</form>
 			</div>
 			<?php 
-				if ($option == 'niveau' || $niveau_demandé != 0) {
+				if ($_GET['champ'] == 'niveau' ||$niveau_demande) {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($niveaux); $i++) {
 							echo "<button type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";

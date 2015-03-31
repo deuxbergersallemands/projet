@@ -118,7 +118,7 @@
 									<td>".$chansonsRecentes[$i]['interprete']."</td>
 									<td>".$chansonsRecentes[$i]['niveau']."</td>
 									<td>".$chansonsRecentes[$i]['date_soumise']."</td>
-									<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."' class='btn btn-primary btn-xs'> Cliquez pour Étudier </button></form></td>  
+									<td> <form action='chanson.php' method='post'><input type='hidden' name='id_chanson' value='".$chansonsRecentes[$i]['id_chanson']."'/><button type='submit' name='submit' value='afficher' class='btn btn-primary btn-xs'> Cliquez pour Étudier </button></form></td>  
 								  </tr>";
 						}
 					?>

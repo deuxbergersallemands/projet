@@ -2,20 +2,32 @@
 	session_start();
 	require_once("connexion_base.php");
 
-	if (!empty($_POST)) {
-		$id_chanson = $_POST['id_chanson'];
+	switch ($_POST['submit']) {
+		case 'afficher':
+			$id_chanson = $_POST['id_chanson'];
 
-		$requeteChanson="SELECT * FROM chanson WHERE id_chanson = $id_chanson";  // Retourner le id_personne de l'utilisateur!
-		$responseChanson = $pdo->prepare($requeteChanson);
-		$responseChanson->execute();
+			$requeteChanson="SELECT * FROM chanson WHERE id_chanson = $id_chanson";  // Retourner le id_personne de l'utilisateur!
+			$responseChanson = $pdo->prepare($requeteChanson);
+			$responseChanson->execute();
 
-		$chanson = $responseChanson->fetchAll();
-		$_SESSION['titre'] = $chanson[0]['titre'];
-		$_SESSION['interprete'] = $chanson[0]['interprete'];
-		$_SESSION['paroles'] = $chanson[0]['paroles'];
-		$_SESSION['lien'] = $chanson[0]['lien'];
-		$_SESSION['id_chanson'] = $id_chanson;
-	} 
+			$chanson = $responseChanson->fetchAll();
+			$_SESSION['titre'] = $chanson[0]['titre'];
+			$_SESSION['interprete'] = $chanson[0]['interprete'];
+			$_SESSION['paroles'] = $chanson[0]['paroles'];
+			$_SESSION['lien'] = $chanson[0]['lien'];
+			$_SESSION['id_chanson'] = $id_chanson;
+			break;
+
+		case 'commentaire_soumis':
+			$nouveau_commentaire = $_POST['commentaire'];
+			$id_utilisateur = $_SESSION['id_personne'];
+			$id_chanson = $_SESSION['id_chanson'];
+
+			$requete3="INSERT INTO commentaire (texte, id_utilisateur, id_chanson, date_soumise) VALUES (?, ?, ?, NOW())";
+			$response3=$pdo->prepare($requete3);
+			$response3->execute(array($nouveau_commentaire, $id_utilisateur, $id_chanson));			
+		break;
+	}
 	/**
 	 * Trouver les commentaires liés avec cette chanson
 	 **/
@@ -31,6 +43,7 @@
 	$response2 = $pdo->prepare($requete2);
 	$response2->execute();
 	$pseudo = $response2->fetchAll();
+	
 ?>
 
 <!DOCTYPE HTML>
@@ -66,7 +79,13 @@
 						echo "<a href=".$_SESSION['lien']." target='_blank'> Cliquez ici pour écouter ".$_SESSION['titre']."</a>";  
 					?>
 				</div>
-
+				<div>
+					<form action='chanson.php' method='post'>
+						<p> Pensez à laisser un commentaire </p>
+						<textarea name='commentaire' class='form-control'> </textarea>
+						<button type='submit' class='btn btn-primary' name='submit' value='commentaire_soumis'></button>
+					</form>
+				</div>
 				<div class="commentaires">
 					<?php 
 						for ($i=0; $i<count($commentaires); $i++) {

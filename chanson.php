@@ -14,7 +14,23 @@
 		$_SESSION['interprete'] = $chanson[0]['interprete'];
 		$_SESSION['paroles'] = $chanson[0]['paroles'];
 		$_SESSION['lien'] = $chanson[0]['lien'];
+		$_SESSION['id_chanson'] = $id_chanson;
 	} 
+	/**
+	 * Trouver les commentaires liés avec cette chanson
+	 **/
+	$requete="SELECT * FROM commentaire WHERE id_chanson = $id_chanson";  // Retourner les commentaires pour une chanson
+	$response = $pdo->prepare($requete);
+	$response->execute();
+	$commentaires = $response->fetchAll();
+
+	/**
+	 * Trouver les pseudos liés avec les commentaires
+	 **/
+	$requete2="SELECT pseudo FROM personne INNER JOIN commentaire  WHERE personne.id_personne = commentaire.id_utilisateur AND commentaire.id_chanson = $id_chanson";
+	$response2 = $pdo->prepare($requete2);
+	$response2->execute();
+	$pseudo = $response2->fetchAll();
 ?>
 
 <!DOCTYPE HTML>
@@ -33,7 +49,7 @@
 			<div class="boite-centrale">
 				<?php
 					echo "<h3> ".$_SESSION['titre']."</h3>
-					<h5> de ".$_SESSION['interprete']."</h5>";
+						<h5> de ".$_SESSION['interprete']."</h5>";
 				?>
 				<div class="etiquettes">
 					<div class="etiquette">Passe-Compose</div>
@@ -52,21 +68,15 @@
 				</div>
 
 				<div class="commentaires">
-					<div class="commentaire">
-						<h5> StromaeFan  10/10/2015</h5>
-						<hl>
-						<p> OMG Merci bcp! </p>
-					</div>
-					<div class="commentaire"
-						<h5> StromaeFan2  10/14/2015</h5>
-						<hl>
-						<p> Si tu aimes maître gims, t'es nul! </p>
-					</div>
-					<div class="commentaire"
-						<h5> ReineDesNeiges  10/14/2015</h5>
-						<hl>
-						<p> Libéréeeeeeee Délivréeeeeee!</p>
-					</div>				
+					<?php 
+						for ($i=0; $i<count($commentaires); $i++) {
+						echo "<div class='commentaire'> 
+								<h5>".$pseudo[$i]['pseudo']."</h5>
+								<hl>
+								<p>".$commentaires[$i]['texte']."</p>
+							</div>";  
+						} 
+					?> 			
 				</div>
  			</div>
 		</div>

@@ -55,7 +55,7 @@
 						<input class="btn btn-primary"  onclick="soumettreConnection()" id="validation"/>
 					</div>
 					<hr>
-					<a href="creercompte.php"> Vous n'avez pas de compte? Vous pouvez vous inscrire en cliquant ici! </a> 
+					<a href="creercompte.php"> Vous n'avez pas de compte? Vous pouvez vous inscrire en cliquant au-dessous! </a> 
 				</form>
 			</div>
 		</div>

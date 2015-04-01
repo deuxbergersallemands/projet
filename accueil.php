@@ -13,8 +13,7 @@
 
 			$chansons = $response->fetchAll();
 			break;
-		//}
-		default:
+		case 'niveau_chanson':
 			$niveau_demande = $_GET['niveau_chanson'];
 
 			$requete="SELECT * FROM chanson WHERE niveau=$niveau_demande";
@@ -22,6 +21,7 @@
 			$response->execute();
 
 			$chansons = $response->fetchAll();	
+			break;
 	}
 ?>
 
@@ -30,11 +30,11 @@
 	<head>
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href="css/accueil.css" rel="stylesheet" type="text/css" media="all"/>
-		<title> UnBergerAllemand </title>
+		<title> Page d'accueil </title>
 	</head>
 	<body>
 		<header>
-			<h1> BergerAllemand </h1>
+			<h1> Page d'accueil </h1>
 			<a href="soumettrechanson.php"> Soumettre une chanson! </a> 
 			<form action="deconnexion.php" method="post">
 				<button type="submit" class="btn btn-warning"> Déconnexion </button>
@@ -66,10 +66,10 @@
 				</form>
 			</div>
 			<?php 
-				if ($_GET['champ'] == 'niveau' ||$niveau_demande) {
+				if ($_GET['champ'] == 'niveau' || $niveau_demande) {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($niveaux); $i++) {
-							echo "<button type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";
+							echo "<input type='hidden' name='champ' value='niveau_chanson'><button type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";
 						}
 					echo "</form>";
 				}

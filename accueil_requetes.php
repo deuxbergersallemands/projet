@@ -1,11 +1,4 @@
 <?php
-	$requete="SELECT * FROM niveau";  // Retourner le id_personne de l'utilisateur!
-	$response = $pdo->prepare($requete);
-	$response->execute();
-
-	$niveaux = $response->fetchAll();
-
-
 	$pseudo = $_SESSION['pseudo'];
 
 	$requete2="SELECT id_personne FROM personne WHERE pseudo = '$pseudo'";  // Retourner le id_personne de l'utilisateur!
@@ -24,6 +17,16 @@
 	$chansonsRecentes = $responseChanson->fetchAll();
 
     /**
+     * Attraper tous les niveaux
+     */
+	$requete="SELECT * FROM niveau";  // Retourner le id_personne de l'utilisateur!
+	$response = $pdo->prepare($requete);
+	$response->execute();
+
+	$niveaux = $response->fetchAll();
+
+
+    /**
      * Attraper toutes les catégories
      */
 	$requeteCategorie="SELECT * FROM categorie"; 
@@ -33,7 +36,7 @@
 	$categories = $responseCategorie->fetchAll();
 
     /**
-     * Attraper toutes les catégories
+     * Attraper tous les genres
      */
 	$requeteStyle="SELECT * FROM genre"; 
 	$responseStyle = $pdo->prepare($requeteStyle);

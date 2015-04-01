@@ -22,6 +22,15 @@
 
 			$chansons = $response->fetchAll();	
 			break;
+		case 'genre_chanson':
+			$genre_demande = $_GET['genre_chanson'];
+
+			$requete="SELECT * FROM chanson WHERE genre=$genre_demande";
+			$response = $pdo->prepare($requete);
+			$response->execute();
+
+			$chansons = $response->fetchAll();
+			break; 
 	}
 ?>
 
@@ -47,43 +56,43 @@
 		<div class="boite-centrale">
 			<div class="rechercher-grammaire">
 				<form action="accueil.php" method="get">
-					<button type='submit' name='champ' value='niveau'> Niveau </button>
+					<button class='btn btn-info' type='submit' name='champ' value='niveau'> Niveau </button>
 				</form>
 			</div>
 			<div class="rechercher-grammaire">
 				<form action="accueil.php" method="get">
-					<button type='submit' name='champ' value='categories'> Catégories </button>
+					<button class='btn btn-info' type='submit' name='champ' value='categories'> Catégories </button>
 				</form>
 			</div>
 			<div class="rechercher-grammaire">
 				<form action="accueil.php" method="get">
-					<button type='submit' name='champ' value='style'> Style de Musique </button>
+					<button class='btn btn-info' type='submit' name='champ' value='style'> Style de Musique </button>
 				</form>
 			</div>
 			<div class="rechercher-grammaire">
 				<form action="accueil.php" method="get">
-					<button type='submit' name='champ' value='toutes'> Toutes </button>
+					<button class='btn btn-info' type='submit' name='champ' value='toutes'> Toutes </button>
 				</form>
 			</div>
 			<?php 
-				if ($_GET['champ'] == 'niveau' || $niveau_demande) {
+				if ($_GET['champ'] == 'niveau' || $_GET['champ'] == 'niveau_chanson') {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($niveaux); $i++) {
-							echo "<input type='hidden' name='champ' value='niveau_chanson'><button type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";
+							echo "<input type='hidden' name='champ' value='niveau_chanson'><button class='btn btn-primary' type='submit' name='niveau_chanson' value='".$niveaux[$i]['id_niveau']."'>".$niveaux[$i]['niveau_texte']."</button>";
 						}
 					echo "</form>";
 				}
 				if ($_GET['champ'] == 'categories') {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($categories); $i++) {
-							echo "<input type='hidden' name='champ' value='categorie_chanson'><button type='submit' name='categorie_chanson' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</button>";
+							echo "<input type='hidden' name='champ' value='categorie_chanson'><button class='btn btn-primary' type='submit' name='categorie_chanson' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</button>";
 						}
 					echo "</form>";
 				}
-				if ($_GET['champ'] == 'style') {
+				if ($_GET['champ'] == 'style' || $_GET['champ'] == 'genre_chanson') {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($styles); $i++) {
-							echo "<input type='hidden' name='champ' value='genre_chanson'><button type='submit' name='genre_chanson' value='".$styles[$i]['id_genre']."'>".$styles[$i]['texte']."</button>";
+							echo "<input type='hidden' name='champ' value='genre_chanson'><button class='btn btn-primary' type='submit' name='genre_chanson' value='".$styles[$i]['id_genre']."'>".$styles[$i]['texte']."</button>";
 						}
 					echo "</form>";
 				}		

@@ -73,7 +73,13 @@
 						}
 					echo "</form>";
 				}
-				if (count($chansons)) {
+				if ($_GET['champ'] == 'categories') {
+					echo "<form method='get' action='accueil.php'>";
+						for ($i=0; $i<count($categories); $i++) {
+							echo "<input type='hidden' name='champ' value='categorie_chanson'><button type='submit' name='categorie_chanson' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</button>";
+						}
+					echo "</form>";
+				}				if (count($chansons)) {
 				echo "<div class='resultats'> 
 						<table class=' table table-condensed table-bordered table-hover table-striped'>
 							<tr>

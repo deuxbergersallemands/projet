@@ -22,4 +22,13 @@
 	$responseChanson->execute();
 
 	$chansonsRecentes = $responseChanson->fetchAll();
+
+    /**
+     * Attraper toutes les catégories
+     */
+	$requeteCategorie="SELECT * FROM categorie"; 
+	$responseCategorie = $pdo->prepare($requeteCategorie);
+	$responseCategorie->execute();
+
+	$categories = $responseCategorie->fetchAll();
 ?>

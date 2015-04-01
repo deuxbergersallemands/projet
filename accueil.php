@@ -79,7 +79,15 @@
 							echo "<input type='hidden' name='champ' value='categorie_chanson'><button type='submit' name='categorie_chanson' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</button>";
 						}
 					echo "</form>";
-				}				if (count($chansons)) {
+				}
+				if ($_GET['champ'] == 'style') {
+					echo "<form method='get' action='accueil.php'>";
+						for ($i=0; $i<count($styles); $i++) {
+							echo "<input type='hidden' name='champ' value='genre_chanson'><button type='submit' name='genre_chanson' value='".$styles[$i]['id_genre']."'>".$styles[$i]['texte']."</button>";
+						}
+					echo "</form>";
+				}		
+				if (count($chansons)) {
 				echo "<div class='resultats'> 
 						<table class=' table table-condensed table-bordered table-hover table-striped'>
 							<tr>

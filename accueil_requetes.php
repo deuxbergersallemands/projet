@@ -31,4 +31,15 @@
 	$responseCategorie->execute();
 
 	$categories = $responseCategorie->fetchAll();
+
+    /**
+     * Attraper toutes les catégories
+     */
+	$requeteStyle="SELECT * FROM genre"; 
+	$responseStyle = $pdo->prepare($requeteStyle);
+	$responseStyle->execute();
+
+	$styles = $responseStyle->fetchAll();
+
 ?>
+

@@ -50,8 +50,6 @@
 	$categories = $response3->fetchAll();
 
 	$num = count($categories);
-	echo "   asdfa;lsdfja;sdf   $num     A S;DLFKJA;SDLFKJA;SKLFD";
-
 ?>
 
 <!DOCTYPE HTML>

@@ -16,13 +16,19 @@
 		$niveau = $_POST['niveau'];
 		$genre = $_POST['genre'];
 		$lien = $_POST['lien'];
-
+		$cats = $_POST['categories'];
 
 		$requete3="INSERT INTO chanson (titre, interprete, paroles, niveau, genre, lien, utilisateur, date_soumise) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 		$response3=$pdo->prepare($requete3);
 		$response3->execute(array($chanson, $artiste, $paroles, $niveau, $genre, $lien, $id_personne));
 
-		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
+		$id_chanson = $pdo->lastInsertId();
+
+		foreach ($cats as $id_cat) {
+			$requete4="INSERT INTO contenu_chanson (id_categorie, id_chanson, date_soumise) VALUES (?, ?, NOW())";
+			$reponse4 =$pdo->prepare($requete4);
+			$reponse4->execute(array($id_cat, $id_chanson));
+		}
 
 	}
 
@@ -46,11 +52,13 @@
 				<form action="soumettrechanson.php" method="post" id="soumettrechanson" >
 					<input type="text" class="form-control" name="chanson" placeholder="Titre de Chanson"/>
 					<input type="text" class="form-control" name="artiste" placeholder="Artiste"/>
+					<select multiple name="categories[]">
 				    <?php
 						for ($i=0; $i<count($categories); $i++) {
-								echo "<input type='radio' name='etiquette' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</input>";
+								echo "<option type='radio' name='etiquette' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</option>";
 						}
 					 ?>
+					</select>
 					<div class="paroles">
 						<textarea class="form-control" name="paroles" placeholder="Paroles!"></textarea>
 					</div>

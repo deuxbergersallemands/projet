@@ -43,7 +43,15 @@
 	$response2 = $pdo->prepare($requete2);
 	$response2->execute();
 	$pseudo = $response2->fetchAll();
-	
+
+	$requete3="SELECT texte FROM categorie WHERE id_categorie IN (SELECT id_categorie FROM contenu_chanson WHERE id_chanson=$id_chanson)";
+	$response3 = $pdo->prepare($requete3);
+	$response3->execute();
+	$categories = $response3->fetchAll();
+
+	$num = count($categories);
+	echo "   asdfa;lsdfja;sdf   $num     A S;DLFKJA;SDLFKJA;SKLFD";
+
 ?>
 
 <!DOCTYPE HTML>
@@ -65,9 +73,11 @@
 						<h5> de ".$_SESSION['interprete']."</h5>";
 				?>
 				<div class="etiquettes">
-					<div class="etiquette">Passe-Compose</div>
-					<div class="etiquette">Plus-Que-Parfait</div>
-					<div class="etiquette">Plus-Que-Parfait</div>
+					<?php
+						for ($i=0; $i<count($categories); $i++) {
+					echo "<div class='etiquette'>".$categories[$i]['texte']."</div>";
+				}
+					?> 
 				</div>
 				<div class="paroles">
 					<?php

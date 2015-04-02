@@ -34,7 +34,7 @@
 		case 'categorie_chanson':
 			$categorie_demande = $_GET['categorie_chanson'];
 
-			$requete="SELECT * FROM contenu_chanson WHERE id_categorie=$categorie_demande";
+			$requete="SELECT * FROM chanson WHERE id_chanson IN (SELECT id_chanson FROM contenu_chanson WHERE id_categorie=$categorie_demande)";
 			$response = $pdo->prepare($requete);
 			$response->execute();
 

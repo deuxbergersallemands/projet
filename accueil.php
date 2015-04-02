@@ -31,6 +31,15 @@
 
 			$chansons = $response->fetchAll();
 			break; 
+		case 'categorie_chanson':
+			$categorie_demande = $_GET['categorie_chanson'];
+
+			$requete="SELECT * FROM contenu_chanson WHERE id_categorie=$categorie_demande";
+			$response = $pdo->prepare($requete);
+			$response->execute();
+
+			$chansons = $response->fetchAll();
+			break; 
 	}
 ?>
 
@@ -82,7 +91,7 @@
 						}
 					echo "</form>";
 				}
-				if ($_GET['champ'] == 'categories') {
+				if ($_GET['champ'] == 'categories' || $_GET['champ'] == 'categorie_chanson') {
 					echo "<form method='get' action='accueil.php'>";
 						for ($i=0; $i<count($categories); $i++) {
 							echo "<input type='hidden' name='champ' value='categorie_chanson'><button class='btn btn-primary' type='submit' name='categorie_chanson' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</button>";
@@ -112,7 +121,7 @@
 								<td>".$chansons[$i]['interprete']."</td>
 								<td>".$chansons[$i]['niveau']."</td>
 								<td>".$chansons[$i]['date_soumise']."</td>
-								<td> <form action='chanson.php' method='post'><button type='submit' name='id_chanson' value='".$chansons[$i]['id_chanson']."' class='btn btn-primary btn-xs'> Cliquez ici! </button></form></td>  
+								<td> <form action='chanson.php' method='post'><input type='hidden' name='id_chanson' value='".$chansons[$i]['id_chanson']."'/><button type='submit' name='submit' value='afficher' class='btn btn-primary btn-xs'> Cliquez pour Étudier </button></form></td>   
 
 						  </tr> ";
 					}		
@@ -123,7 +132,7 @@
 
 			<!-- Afficher les chasons publiées récennement -->
 			<div class="favoris">
- 				<h4> Récemment ajoutées </h4> 
+ 				<h4> Dernières ajoutées </h4> 
 				<table class="table-condensed table-bordered table-hover table-striped table">
 					<tr>
 						<th> Chanson </th>

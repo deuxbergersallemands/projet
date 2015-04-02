@@ -25,6 +25,8 @@
 		header('Location: http://localhost:8888/projet/accueil.php');   // Diriger l'utilisateur vers la page d'accueil
 
 	}
+
+
 ?>
 
 <!DOCTYPE HTML>
@@ -44,10 +46,11 @@
 				<form action="soumettrechanson.php" method="post" id="soumettrechanson" >
 					<input type="text" class="form-control" name="chanson" placeholder="Titre de Chanson"/>
 					<input type="text" class="form-control" name="artiste" placeholder="Artiste"/>
-
-					<div class="etiquettes">
-						<input type="text" class="form-control" name="etiquettes" placeholder="Étiquettes"/>
-					</div>
+				    <?php
+						for ($i=0; $i<count($categories); $i++) {
+								echo "<input type='radio' name='etiquette' value='".$categories[$i]['id_categorie']."'>".$categories[$i]['texte']."</input>";
+						}
+					 ?>
 					<div class="paroles">
 						<textarea class="form-control" name="paroles" placeholder="Paroles!"></textarea>
 					</div>

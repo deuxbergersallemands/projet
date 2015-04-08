@@ -57,6 +57,7 @@
 			<form action="deconnexion.php" method="post">
 				<button type="submit" class="btn btn-warning"> Déconnexion </button>
 			</form>
+			<a href="forum.php"> Aller au Forum </av>
 		</header>
 		<?php
 			if ($_SESSION['pseudo'])
